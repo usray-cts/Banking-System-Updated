@@ -1,0 +1,58 @@
+# Unit Test Scenarios for the Function
+
+1. **Test creating a new account**
+    - Create an account with a valid account number and check if the account is created successfully.
+    - Create an account with an account number that already exists and check if the function handles the duplicate correctly.
+    - Create an account with an invalid account number (e.g., too short, too long, contains non-numeric characters) and check if the function handles the error correctly.
+
+2. **Test depositing money into the account**
+    - Deposit a positive amount of money and check if the balance is updated correctly.
+    - Deposit a negative amount of money and check if the function handles the error correctly.
+    - Deposit a non-numeric value and check if the function handles the error correctly.
+
+3. **Test withdrawing money from the account**
+    - Withdraw an amount less than the balance and check if the balance is updated correctly.
+    - Withdraw an amount equal to the balance and check if the balance is updated to zero correctly.
+    - Withdraw an amount greater than the balance and check if the function raises a `ValueError` as expected.
+    - Withdraw a negative amount and check if the function handles the error correctly.
+    - Withdraw a non-numeric value and check if the function handles the error correctly.
+
+4. **Test printing the account statement**
+    - Perform several transactions and check if all of them are listed correctly in the account statement.
+    - Check if the account statement correctly displays the final balance.
+    - Check if the account statement handles an account with no transactions correctly.
+
+5. **Test the functionality when no account is created**
+    - Try to perform transactions without creating an account and check if the function handles the error correctly.
+    - Try to print an account statement without creating an account and check if the function handles the error correctly.# Unit Test Scenarios for the Function
+
+Here are some diverse scenarios that the function should be able to handle:
+
+1. **Successful account creation**
+    - The `create_account` method is called with a valid account number, and it successfully creates an account.
+    - The `create_account` method is called with a unique account number, and it successfully creates an account.
+
+2. **Failed account creation**
+    - The `create_account` method is called with an invalid account number (e.g., too short, too long, contains invalid characters), and it fails to create an account.
+    - The `create_account` method is called with an account number that already exists, and it fails to create an account.
+
+3. **Successful deposit**
+    - The `deposit` method is called with a positive amount, and it successfully deposits the amount into the account.
+    - The `deposit` method is called with a large amount, and it successfully deposits the amount into the account.
+
+4. **Failed deposit**
+    - The `deposit` method is called with a negative amount, and it fails to deposit the amount.
+    - The `deposit` method is called with a non-numeric amount, and it fails to deposit the amount.
+
+5. **Successful withdrawal**
+    - The `withdraw` method is called with an amount less than the account balance, and it successfully withdraws the amount.
+    - The `withdraw` method is called with an amount equal to the account balance, and it successfully withdraws the amount.
+
+6. **Failed withdrawal**
+    - The `withdraw` method is called with an amount greater than the account balance, and it fails to withdraw the amount (raising a `ValueError`).
+    - The `withdraw` method is called with a negative amount, and it fails to withdraw the amount.
+    - The `withdraw` method is called with a non-numeric amount, and it fails to withdraw the amount.
+
+7. **Account statement retrieval**
+    - The `get_account_statement` method is called after several transactions have been made, and it successfully retrieves a statement showing all transactions.
+    - The `get_account_statement` method is called when no transactions have been made, and it successfully retrieves an empty statement.

@@ -1,0 +1,75 @@
+# Unit Test Scenarios for the Bank Class
+
+## Scenario: Creating a New Account
+
+- Test when a new account is created with a unique account number.
+  - Example: Create an account with account number '12345'. The function should return an `Account` object with account number '12345'.
+  - Example: Create an account with account number '67890'. The function should return an `Account` object with account number '67890'.
+
+## Scenario: Creating an Account That Already Exists
+
+- Test when an account is created with an account number that already exists.
+  - Example: Create an account with account number '12345' twice. The function should raise a `ValueError` the second time, stating that the account already exists.
+  - Example: Create an account with account number '67890' twice. The function should raise a `ValueError` the second time, stating that the account already exists.
+
+## Scenario: Retrieving an Existing Account
+
+- Test when an existing account is retrieved.
+  - Example: Create an account with account number '12345' and then retrieve it. The function should return the `Account` object with account number '12345'.
+  - Example: Create an account with account number '67890' and then retrieve it. The function should return the `Account` object with account number '67890'.
+
+## Scenario: Retrieving a Non-Existent Account
+
+- Test when a non-existent account is retrieved.
+  - Example: Try to retrieve an account with account number '12345' without creating it. The function should raise a `ValueError` stating that the account was not found.
+  - Example: Try to retrieve an account with account number '67890' without creating it. The function should raise a `ValueError` stating that the account was not found.
+
+## Scenario: Edge Cases
+
+- Test when an account is created with an account number that is not a string or integer.
+  - Example: Create an account with account number `None`. The function should handle this gracefully, possibly by raising a `TypeError`.
+  - Example: Create an account with account number `[]` (an empty list). The function should handle this gracefully, possibly by raising a `TypeError`.
+
+- Test when an account is created or retrieved with an account number that is an empty string.
+  - Example: Create an account with account number ''. The function should handle this gracefully, possibly by raising a `ValueError`.
+  - Example: Try to retrieve an account with account number ''. The function should handle this gracefully, possibly by raising a `ValueError`.# Unit Test Scenarios for Bank Class
+
+## Scenario 1: Account Creation
+
+- When a new account is created with a unique account number.
+    - Example: `create_account(123456)`
+    - Example: `create_account("ABC123")`
+- When an attempt is made to create an account with an account number that already exists.
+    - Example: After `create_account(123456)`, calling `create_account(123456)` again.
+
+## Scenario 2: Account Retrieval
+
+- When an existing account is retrieved using a valid account number.
+    - Example: After `create_account(123456)`, calling `get_account(123456)`.
+    - Example: After `create_account("ABC123")`, calling `get_account("ABC123")`.
+- When an attempt is made to retrieve an account using an account number that does not exist.
+    - Example: `get_account(654321)` when no such account has been created.
+    - Example: `get_account("XYZ789")` when no such account has been created.
+
+## Scenario 3: Edge Cases
+
+- When an attempt is made to create an account with an account number that is not a string or integer.
+    - Example: `create_account([123456])`
+    - Example: `create_account({"account": 123456})`
+- When an attempt is made to retrieve an account with an account number that is not a string or integer.
+    - Example: `get_account([123456])`
+    - Example: `get_account({"account": 123456})`
+
+## Scenario 4: Large Input
+
+- When a large number of accounts are created.
+    - Example: Creating accounts with account numbers ranging from 1 to 10,000.
+    - Example: Creating accounts with account numbers being strings of length 1 to 10,000.
+
+## Scenario 5: Empty Input
+
+- When an attempt is made to create or retrieve an account with an empty string or zero as the account number.
+    - Example: `create_account("")`
+    - Example: `create_account(0)`
+    - Example: `get_account("")`
+    - Example: `get_account(0)`

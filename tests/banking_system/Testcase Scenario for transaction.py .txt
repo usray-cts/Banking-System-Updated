@@ -1,0 +1,42 @@
+Sure, here are some scenarios that the function should be able to handle:
+
+- **Positive deposit amount**
+    - Deposit a small amount, e.g., 1
+    - Deposit a large amount, e.g., 1,000,000
+    - Deposit an amount with decimal places, e.g., 100.50
+
+- **Zero deposit amount**
+    - Deposit zero
+
+- **Negative deposit amount**
+    - Deposit a small negative amount, e.g., -1
+    - Deposit a large negative amount, e.g., -1,000,000
+    - Deposit a negative amount with decimal places, e.g., -100.50
+
+- **Positive withdrawal amount**
+    - Withdraw a small amount, e.g., 1
+    - Withdraw a large amount, e.g., 1,000,000
+    - Withdraw an amount with decimal places, e.g., 100.50
+
+- **Zero withdrawal amount**
+    - Withdraw zero
+
+- **Negative withdrawal amount**
+    - Withdraw a small negative amount, e.g., -1
+    - Withdraw a large negative amount, e.g., -1,000,000
+    - Withdraw a negative amount with decimal places, e.g., -100.50
+
+- **Withdrawal amount greater than account balance**
+    - Withdraw an amount that is slightly greater than the account balance, e.g., if balance is 100, withdraw 101
+    - Withdraw an amount that is significantly greater than the account balance, e.g., if balance is 100, withdraw 1,000,000
+
+- **Deposit and withdrawal in quick succession**
+    - Deposit an amount, then immediately withdraw the same amount
+    - Deposit an amount, then immediately withdraw a different amount
+    - Deposit an amount, then immediately withdraw an amount greater than the deposit
+
+- **Multiple deposits and withdrawals in quick succession**
+    - Make multiple deposits and withdrawals in a random order, with varying amounts
+
+- **Concurrent transactions**
+    - Attempt to make multiple deposits or withdrawals at the same time (this would require a multithreaded test)

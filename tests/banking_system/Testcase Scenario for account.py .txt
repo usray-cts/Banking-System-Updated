@@ -1,0 +1,42 @@
+# Unit Test Scenarios for Account Class
+
+## Scenario 1: Account creation
+- Creating an account with a positive initial balance
+- Creating an account with no initial balance (default to 0)
+- Creating an account with a negative initial balance (should raise an error)
+
+## Scenario 2: Deposit Transactions
+- Depositing a positive integer amount
+    - Example: Deposit 100
+- Depositing a positive float amount
+    - Example: Deposit 100.50
+- Depositing a zero amount
+    - Example: Deposit 0
+- Depositing a negative amount (should raise an error)
+    - Example: Deposit -100
+- Depositing a non-numeric amount (should raise an error)
+    - Example: Deposit "one hundred"
+
+## Scenario 3: Withdrawal Transactions
+- Withdrawing an amount less than the balance
+    - Example: Withdraw 50 from an account with a balance of 100
+- Withdrawing an amount equal to the balance
+    - Example: Withdraw 100 from an account with a balance of 100
+- Withdrawing an amount greater than the balance (should raise an error)
+    - Example: Withdraw 200 from an account with a balance of 100
+- Withdrawing a negative amount (should raise an error)
+    - Example: Withdraw -50
+- Withdrawing a non-numeric amount (should raise an error)
+    - Example: Withdraw "fifty"
+
+## Scenario 4: Account Statement
+- Getting the account statement with no transactions (should return an empty list)
+- Getting the account statement with one transaction
+- Getting the account statement with multiple transactions
+
+## Scenario 5: Edge Cases
+- Making a deposit immediately followed by a withdrawal of the same amount
+- Making a withdrawal immediately followed by a deposit of the same amount
+- Making multiple deposits and withdrawals in a short period of time
+- Making a deposit or withdrawal with a very large amount
+- Making a deposit or withdrawal with a very small amount (e.g. 0.01)
