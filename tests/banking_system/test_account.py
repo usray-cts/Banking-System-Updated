@@ -2,84 +2,88 @@
 import pytest
 from account import Account
 
-# Unit tests for Account class
+# Unit tests for the Account class
 
-# Test account initialization
-def test_account_initialization():
-    # Test initialization with positive balance
-    account = Account('123', 100)
-    assert account.account_number == '123'
-    assert account.balance == 100
+# Scenario 1: Creating an account
+def test_create_account_positive_balance():
+    account = Account("123456", 1000)
+    assert account.account_number == "123456"
+    assert account.balance == 1000
+    assert account.transactions == []
 
-    # Test initialization with zero balance
-    account = Account('123', 0)
-    assert account.account_number == '123'
+def test_create_account_zero_balance():
+    account = Account("123456", 0)
+    assert account.account_number == "123456"
     assert account.balance == 0
+    assert account.transactions == []
 
-    # Test initialization with negative balance
+# Scenario 2: Depositing money
+def test_deposit_positive_amount():
+    account = Account("123456", 1000)
+    new_balance = account.deposit(100, "T1", "2022-01-01 10:00:00")
+    assert new_balance == 1100
+    assert account.transactions[-1] == {'transaction_id': 'T1', 'type': 'deposit', 'amount': 100, 'timestamp': '2022-01-01 10:00:00'}
+
+def test_deposit_zero_amount():
+    account = Account("123456", 1000)
+    new_balance = account.deposit(0, "T1", "2022-01-01 10:00:00")
+    assert new_balance == 1000
+    assert account.transactions[-1] == {'transaction_id': 'T1', 'type': 'deposit', 'amount': 0, 'timestamp': '2022-01-01 10:00:00'}
+
+def test_deposit_negative_amount():
+    account = Account("123456", 1000)
     with pytest.raises(ValueError):
-        account = Account('123', -100)
+        account.deposit(-100, "T1", "2022-01-01 10:00:00")
 
-# Test deposit method
-def test_deposit():
-    account = Account('123', 100)
-
-    # Test depositing a positive amount
-    account.deposit(100, '001', '2022-01-01')
-    assert account.balance == 200
-
-    # Test depositing a zero amount
-    account.deposit(0, '002', '2022-01-02')
-    assert account.balance == 200
-
-    # Test depositing a negative amount
+def test_deposit_non_numeric_value():
+    account = Account("123456", 1000)
     with pytest.raises(ValueError):
-        account.deposit(-100, '003', '2022-01-03')
+        account.deposit("100", "T1", "2022-01-01 10:00:00")
 
-    # Test depositing a non-numeric amount
+# Scenario 3: Withdrawing money
+def test_withdraw_less_than_balance():
+    account = Account("123456", 1000)
+    new_balance = account.withdraw(100, "T2", "2022-01-02 10:00:00")
+    assert new_balance == 900
+    assert account.transactions[-1] == {'transaction_id': 'T2', 'type': 'withdraw', 'amount': 100, 'timestamp': '2022-01-02 10:00:00'}
+
+def test_withdraw_equal_to_balance():
+    account = Account("123456", 1000)
+    new_balance = account.withdraw(1000, "T2", "2022-01-02 10:00:00")
+    assert new_balance == 0
+    assert account.transactions[-1] == {'transaction_id': 'T2', 'type': 'withdraw', 'amount': 1000, 'timestamp': '2022-01-02 10:00:00'}
+
+def test_withdraw_greater_than_balance():
+    account = Account("123456", 1000)
     with pytest.raises(ValueError):
-        account.deposit('100', '004', '2022-01-04')
+        account.withdraw(1100, "T2", "2022-01-02 10:00:00")
 
-# Test withdraw method
-def test_withdraw():
-    account = Account('123', 200)
-
-    # Test withdrawing an amount less than the balance
-    account.withdraw(100, '001', '2022-01-01')
-    assert account.balance == 100
-
-    # Test withdrawing an amount equal to the balance
-    account.withdraw(100, '002', '2022-01-02')
-    assert account.balance == 0
-
-    # Test withdrawing an amount greater than the balance
+def test_withdraw_negative_amount():
+    account = Account("123456", 1000)
     with pytest.raises(ValueError):
-        account.withdraw(100, '003', '2022-01-03')
+        account.withdraw(-100, "T2", "2022-01-02 10:00:00")
 
-    # Test withdrawing a zero amount
-    account.withdraw(0, '004', '2022-01-04')
-    assert account.balance == 0
-
-    # Test withdrawing a negative amount
+def test_withdraw_non_numeric_value():
+    account = Account("123456", 1000)
     with pytest.raises(ValueError):
-        account.withdraw(-100, '005', '2022-01-05')
+        account.withdraw("100", "T2", "2022-01-02 10:00:00")
 
-    # Test withdrawing a non-numeric amount
-    with pytest.raises(ValueError):
-        account.withdraw('100', '006', '2022-01-06')
+# Scenario 4: Getting the account statement
+def test_get_account_statement_multiple_transactions():
+    account = Account("123456", 1000)
+    account.deposit(100, "T1", "2022-01-01 10:00:00")
+    account.withdraw(100, "T2", "2022-01-02 10:00:00")
+    statement = account.get_account_statement()
+    assert len(statement) == 2
 
-# Test get_account_statement method
-def test_get_account_statement():
-    account = Account('123', 200)
+def test_get_account_statement_one_transaction():
+    account = Account("123456", 1000)
+    account.deposit(100, "T1", "2022-01-01 10:00:00")
+    statement = account.get_account_statement()
+    assert len(statement) == 1
 
-    # Test retrieving the statement of an account with transactions
-    account.deposit(100, '001', '2022-01-01')
-    account.withdraw(50, '002', '2022-01-02')
-    transactions = account.get_account_statement()
-    assert len(transactions) == 2
-
-    # Test retrieving the statement of an account without transactions
-    account = Account('123', 200)
-    transactions = account.get_account_statement()
-    assert len(transactions) == 0
+def test_get_account_statement_no_transactions():
+    account = Account("123456", 1000)
+    statement = account.get_account_statement()
+    assert statement == []
 ```
